@@ -1,29 +1,96 @@
 {
   "version": "2.6.2",
-  "release_version": "1.0",
-  "released_at": "2026-11-17",
   "summary": {
     "title": "Threat Modeling - Sistem Berbagi Dokumen",
     "owner": "Hilwa Aulia Najaaha",
-    "description": "\tSistem berbagi dokumen yang memungkinkan pemilik mengunggah dokumen, membuat tautan sementara yang berlaku selama 24 jam, membagikan tautan kepada penerima eksternal untuk mengunduh dokumen tanpa login, serta mencabut tautan sebelum masa berlakunya berakhir.",
-    "id": 0
+    "description": "Threat model STRIDE untuk sistem berbagi dokumen melalui tautan sementara yang berlaku 24 jam."
   },
   "detail": {
-    "contributors": [],
-    "diagrams": [
+    "reviewer": "Dosen",
+    "contributors": [
       {
-        "id": 0,
-        "title": "DFD Sistem Berbagi DokumenDFD Sistem Berbagi Dokumen",
-        "diagramType": "STRIDE",
-        "placeholder": "New STRIDE diagram description",
-        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
-        "version": "2.6.2",
-        "cells": [],
-        "description": "DFD Sistem Berbagi DokumenDFD Sistem Berbagi Dokumen"
+        "name": "Hilwa Aulia Najaaha"
       }
     ],
     "diagramTop": 1,
-    "reviewer": "Dosen",
-    "threatTop": 0
-  }
-}
+    "threatTop": 6,
+    "diagrams": [
+      {
+        "title": "DFD Sistem Berbagi Dokumen",
+        "description": "DFD membedakan isi file dan metadata serta menunjukkan akses penerima eksternal tanpa login dan batas kepercayaan.",
+        "diagramType": "STRIDE",
+        "id": 0,
+        "version": "2.6.2",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "cells": [
+          {
+            "id": "9423985d-e015-47b9-acf6-92cfb89f7c12",
+            "shape": "actor",
+            "zIndex": 1,
+            "position": {
+              "x": 70,
+              "y": 160
+            },
+            "size": {
+              "width": 150,
+              "height": 70
+            },
+            "visible": true,
+            "data": {
+              "name": "Pemilik Dokumen",
+              "type": "actor",
+              "description": "Pengguna terdaftar yang mengunggah file, membuat dan mencabut tautan.",
+              "hasOpenThreats": true,
+              "providesAuthentication": true
+            },
+            "threats": [
+              {
+                "title": "Pemalsuan identitas pemilik dokumen",
+                "type": "Spoofing",
+                "modelType": "STRIDE",
+                "status": "Open",
+                "severity": "High",
+                "number": 1,
+                "threatId": "af959dd9-6d58-4b8b-82d1-ec82d0b4319f",
+                "description": "Penyerang memakai akun atau sesi pemilik yang dicuri untuk mengunggah dokumen atau membuat tautan atas nama korban.",
+                "mitigation": "Terapkan MFA, cookie Secure/HttpOnly/SameSite, masa berlaku sesi, dan deteksi login mencurigakan."
+              }
+            ]
+          },
+          {
+            "id": "ace135d0-1c53-4abf-9a45-955343fccf7c",
+            "shape": "actor",
+            "zIndex": 2,
+            "position": {
+              "x": 70,
+              "y": 390
+            },
+            "size": {
+              "width": 150,
+              "height": 70
+            },
+            "visible": true,
+            "data": {
+              "name": "Penerima Eksternal",
+              "type": "actor",
+              "description": "Penerima membuka tautan sementara melalui browser tanpa wajib login.",
+              "hasOpenThreats": false
+            },
+            "threats": []
+          },
+          {
+            "id": "32a8184d-f062-4f39-a448-c7ed0cfe0255",
+            "shape": "actor",
+            "zIndex": 3,
+            "position": {
+              "x": 70,
+              "y": 620
+            },
+            "size": {
+              "width": 150,
+              "height": 70
+            },
+            "visible": true,
+            "data": {
+              "name": "Admin Organisasi",
+              "type": "actor",
